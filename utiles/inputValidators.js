@@ -22,7 +22,6 @@ export const validateEmail = async (email) => {
   if (!email || !emailRegex.test(email)) {
     return "Please enter a valid email address";
   }
-  return
   const existingUser = await UserSchema.findOne({ email });
   if (existingUser) {
     return "This email is already registered. Please use a different email.";
@@ -33,7 +32,6 @@ export const validatePhoneNumber = async (phoneNumber) => {
   if (!phoneNumber || !phoneNumberRegex.test(phoneNumber)) {
     return "Please enter a valid phone number";
   }
-  return
   const existingUser = await UserSchema.findOne({ phoneNumber });
   if (existingUser) {
     return "This phone number is already registered. Please use a different phone number.";
@@ -51,7 +49,7 @@ export const validateGender = (gender) => {
 export const validateJobTitle = (job) => {
     if(!job || !job.trim()){
         return "Job title is required"
-    }else if(job.length > 10) {
+    }else if(job.length > 20) {
         return "Invalid job title provided"
     }
 }
@@ -80,7 +78,7 @@ export const validateUpdatedPhoneNumber = (phoneNumber) => {
   return null
 }
 
-export const validateUpdatedEmail = async (email) => {
+export const validateUpdatedEmail = (email) => {
   if (!email || !emailRegex.test(email)) {
     return "Please enter a valid email address";
   }

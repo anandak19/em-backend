@@ -11,7 +11,9 @@ const UserSchema = new Schema({
   jobTitle: { type: String, required: true },
   salary: { type: String, required: true },
   password: { type: String, required: true },
-  profilePicUrl: { type: String, required: false },
+  profilePicUrl: { type: String, required: false, default: '' },
+  isAdmin: {type: Boolean, default: false},
+  isDeleted: {type: Boolean, default: false}
 });
 
 export default mongoose.model("User", UserSchema);
