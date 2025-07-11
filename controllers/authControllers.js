@@ -77,7 +77,7 @@ export const loginUser = async (req, res, next) => {
 
     const token = createToken(userData._id, userData.email);
 
-    res.cookie("token", token, {
+    res.cookie("token_user", token, {
       httpOnly: false,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -95,9 +95,24 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
+
 export const logoutUser = async (req, res, next) => {
   try {
-    res.clearCookie("token", {
+    res.clearCookie("token_user", {
+      httpOnly: false,
+    });
+
+    res.status(STATUS_CODES.SUCCESS).json({
+      message: "User logged out successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logoutAdmin = async (req, res, next) => {
+  try {
+    res.clearCookie("token_admin", {
       httpOnly: false,
     });
 
@@ -131,7 +146,7 @@ export const loginAdmin = async (req, res, next) => {
     }
     const token = createToken(userData._id, userData.email);
 
-    res.cookie("token", token, {
+    res.cookie("token_admin", token, {
       httpOnly: true,
       maxAge: 3600000,
     });
@@ -149,3 +164,11 @@ export const loginAdmin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const adminTrue = async (req, res, next) => {
+  try {
+    res.status(STATUS_CODES.SUCCESS).json({success: true, mesage: "Admin varification success"})
+  } catch (error) {
+    next(error)
+  }
+}

@@ -73,14 +73,22 @@ export const validateLoginData = async (req, res, next) => {
 
 export const varifyAuthToken = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    let token;
+
+    if (req.originalUrl.startsWith('/api/admin')) {
+      token = req.cookies.token_admin;
+    } else if (req.originalUrl.startsWith('/api/user')) {
+      token = req.cookies.token_user;
+    } else {
+      throw new CustomError('Invalid access route', STATUS_CODES.BAD_REQUEST);
+    }
+
     if (!token) {
       throw new CustomError("Unauthorized", STATUS_CODES.UNAUTHORIZED);
     }
 
     const payload = varifyToken(token);
     req.user = payload;
-    console.log("Reached here")
     return next();
   } catch (error) {
     // error.message =
