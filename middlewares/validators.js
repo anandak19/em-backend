@@ -74,6 +74,7 @@ export const validateLoginData = async (req, res, next) => {
 export const varifyAuthToken = async (req, res, next) => {
   try {
     let token;
+    console.log("TOKEN VARIFICATION STARTED")
 
     if (req.originalUrl.startsWith('/api/admin')) {
       token = req.cookies.token_admin;

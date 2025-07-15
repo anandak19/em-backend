@@ -6,11 +6,13 @@ export const getUserData = async (req, res, next) => {
   try {
     const { userId } = req.user;
 
+
     const user = await userModel
       .findById(userId)
       .select(
         "firstName lastName email phone gender jobTitle salary profilePicUrl"
       );
+          console.log("TOKEN VARIFICATION ended and data returned")
 
     res
       .status(STATUS_CODES.SUCCESS)

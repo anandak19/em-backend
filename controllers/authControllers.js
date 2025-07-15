@@ -70,6 +70,12 @@ export const loginUser = async (req, res, next) => {
       );
     }
 
+    if (userData.isDeleted) {
+      throw new CustomError(
+        "This account has been removed by an administrator."
+      );
+    }
+
     const isMatch = await bcrypt.compare(password, userData.password);
     if (!isMatch) {
       throw new CustomError("Incorrect password", STATUS_CODES.BAD_REQUEST);
@@ -94,7 +100,6 @@ export const loginUser = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const logoutUser = async (req, res, next) => {
   try {
@@ -167,8 +172,10 @@ export const loginAdmin = async (req, res, next) => {
 
 export const adminTrue = async (req, res, next) => {
   try {
-    res.status(STATUS_CODES.SUCCESS).json({success: true, mesage: "Admin varification success"})
+    res
+      .status(STATUS_CODES.SUCCESS)
+      .json({ success: true, mesage: "Admin varification success" });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
