@@ -4,9 +4,20 @@ import { CustomError } from "../utiles/customError.js";
 
 export const getUsers = async (req, res, next) => {
   try {
+
+    const searchQuery = req.query.search || ''
+
+    const matchStage = {
+      isAdmin: false
+    }
+
+    if(searchQuery){
+      matchStage.firstName = { $regex: searchQuery.trim(), $options: 'i' }
+    }
+
     const users = await userModel.aggregate([
       {
-        $match: { isAdmin: false },
+        $match: matchStage,
       },
       {
         $project: {

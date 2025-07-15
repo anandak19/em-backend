@@ -10,6 +10,6 @@ adminRoutes.get("/is-admin-login", varifyAuthToken, varifyAdmin, adminTrue)
 adminRoutes.get("/users", getUsers)
 adminRoutes.delete("/user/delete/:id", varifyAuthToken, varifyAdmin, deleteSelectedUser)
 adminRoutes.get("/user/:id", varifyAuthToken, varifyAdmin, getSelectedUser)
-adminRoutes.patch("/user/:id", varifyAuthToken, varifyAdmin, validateEditedUserData, saveEditedUserData) // --men at work
+adminRoutes.patch("/user/:id", varifyAuthToken, varifyAdmin, validateEditedUserData, saveEditedUserData)
 
 export default adminRoutes 
